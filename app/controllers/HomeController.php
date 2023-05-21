@@ -6,16 +6,23 @@ use App\core\Controller;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        return $this->render('pages/index');
 
-    public function index(){
-        echo 456;
     }
 
-    public function login(){
-        echo 123;
+    public function login()
+    {
+        return $this->render('auth/login');
     }
 
-    public function registration() {
-        echo 789;
+    public function registration()
+    {
+        $data = [
+            'name' => 'Енот'
+        ];
+        return $this->render('auth/registration', $data);
+
     }
 }

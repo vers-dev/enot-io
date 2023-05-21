@@ -8,12 +8,15 @@ abstract class Model
 
     public function __construct(string $table)
     {
-        $this->table = $table;
     }
 
     public function getTable(): string
     {
         return $this->table;
+    }
+
+    public function setTable(string $table){
+        $this->table = $table;
     }
 
 }

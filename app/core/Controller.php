@@ -2,7 +2,18 @@
 
 namespace App\core;
 
-class Controller
+abstract class Controller
 {
+    public string $route;
+    public object $view;
 
+    public function __construct()
+    {
+        $this->view = new View();
+    }
+
+    public function render(string $view, array $data = []): string
+    {
+        return $this->view->renderView($view, $data);
+    }
 }

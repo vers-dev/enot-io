@@ -1,6 +1,6 @@
 <?php
 
-namespace App\lib\queryuilder;
+namespace App\lib\querybuilder;
 
 class Update
 {

@@ -2,7 +2,9 @@
 
 namespace App\models;
 
-class Currency
+use App\core\Model;
+
+class Currency extends Model
 {
 
 }

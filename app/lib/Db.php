@@ -25,4 +25,7 @@ class Db
         $this->PDO = new PDO($this->dsn, $this->username, $this->password);
         $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+
+
+
 }

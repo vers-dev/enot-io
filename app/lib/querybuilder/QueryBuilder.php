@@ -1,36 +1,15 @@
 <?php
 
-namespace App\lib;
+namespace App\lib\querybuilder;
 
 class QueryBuilder
 {
-    private array $fields = [];
-    private array $conditions = [];
-    private array $from = [];
-
-    public function __toString(): string
+    public function select(string $select)
     {
-        $where = $this->conditions === [] ? '' : ' WHERE ' . implode(' AND ', $this->conditions);
-        return 'SELECT ' . implode(', ', $this->fields) . ' FROM ' . implode(',', $this->from) . $where;
+        return new Select($select);
     }
 
-    public function select(string ...$select) {
-        $this->fields = $select;
-
-        return $this;
-    }
-
-    public function where(string ...$where){
-        foreach ($where as $arg){
-            $this->conditions[] = $arg;
-        }
-
-        return $this;
-    }
-
-    public function from(string $table) {
-        $this->from[] = $table;
-
-        return $this;
+    public function insert(string $into){
+        return new Insert($into);
     }
 }
