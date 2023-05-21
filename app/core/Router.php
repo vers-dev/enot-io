@@ -7,7 +7,6 @@ class Router
     protected Request $request;
     protected array $routes;
 
-
     public function __construct()
     {
         $this->request = new Request();
@@ -19,7 +18,7 @@ class Router
         $this->routes["GET"][$path] = $callback;
     }
 
-    public function post(string $path, \Closure|string|array $callback)
+    public function post(string $path, \Closure|array $callback)
     {
         $this->routes["POST"][$path] = $callback;
     }
@@ -30,12 +29,12 @@ class Router
         $path = $this->request->getPath();
 
         if (!array_key_exists($method, $this->routes)) {
-            echo "Метод {$method} не существует в маршрутах";
+            self::page_not_found();
             http_response_code(404);
             die();
         }
         if (!array_key_exists($path, $this->routes[$method])) {
-            echo "Путь {$path} не найден в {$method} маршрутах";
+            self::page_not_found();
             http_response_code(404);
             die();
         }
@@ -47,5 +46,13 @@ class Router
         }
 
         return call_user_func($callback, $this->routes);
+    }
+
+    private static function page_not_found() {
+        require_once dirname(__DIR__) . '/views/pages/404.view.php';
+    }
+
+    public static function redirect($path = '/'){
+        header("Location: $path");
     }
 }

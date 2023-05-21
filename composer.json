@@ -10,7 +10,10 @@
     }
   ],
   "require": {
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "rakit/validation": "^1.4",
+    "diversen/redbean-composer": "^4.3",
+    "gabordemooij/redbean": "^5.7"
   },
   "autoload": {
     "psr-4": {

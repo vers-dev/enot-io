@@ -15,11 +15,12 @@ class View
         return ob_get_clean();
     }
 
-    private function layout(string $layout = 'layouts\layout'): string
+    private function layout(string $layout = 'layouts/layout'): string
     {
         ob_start();
-        include_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $layout . '.view.php');
+        include_once(dirname(__DIR__) . '/views/' . $layout . '.view.php');
         return ob_get_clean();
+
     }
 
     public function renderView($view, array $data = [])
@@ -27,6 +28,6 @@ class View
         $viewContent = $this->view($view, $data);
         $layoutContent = $this->layout();
 
-        return str_replace("{{ content }}", $layoutContent, $viewContent);
+        return str_replace("{{ content }}", $viewContent, $layoutContent);
     }
 }

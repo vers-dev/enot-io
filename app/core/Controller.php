@@ -2,17 +2,21 @@
 
 namespace App\core;
 
+use Rakit\Validation\Validator;
+
 abstract class Controller
 {
-    public string $route;
     public object $view;
+    public object $request;
 
     public function __construct()
     {
         $this->view = new View();
+        $this->request = new Request();
+        $this->validator = new Validator();
     }
 
-    public function render(string $view, array $data = []): string
+    public function render(string $view, array $data = [])
     {
         return $this->view->renderView($view, $data);
     }

@@ -10,3 +10,6 @@ $router->get('/', [HomeController::class, 'index']);
 $router->get('/login', [HomeController::class, 'login']);
 $router->get('/registration', [HomeController::class, 'registration']);
 $router->get('/profile', [UserController::class, 'profile']);
+$router->get('/logout', [UserController::class, 'logout']);
+
+$router->post('/users/create', [UserController::class, 'store']);
