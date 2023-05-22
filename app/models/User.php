@@ -6,5 +6,8 @@ use App\core\Model;
 
 class User extends Model
 {
-
+    public function getTable(): string
+    {
+        return 'users';
+    }
 }

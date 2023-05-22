@@ -20,7 +20,6 @@ class View
         ob_start();
         include_once(dirname(__DIR__) . '/views/' . $layout . '.view.php');
         return ob_get_clean();
-
     }
 
     public function renderView($view, array $data = [])

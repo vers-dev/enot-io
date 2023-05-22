@@ -9,7 +9,6 @@ class HomeController extends Controller
     public function index()
     {
         return $this->render('pages/index');
-
     }
 
     public function login()

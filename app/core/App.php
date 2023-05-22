@@ -2,40 +2,29 @@
 
 namespace App\core;
 
-use PDO;
-
 final class App
 {
     public Router $router;
-
     public Session $session;
+    public Database $database;
 
     public static App $app;
-    public static $link;
-
 
     public function __construct()
     {
         $this->router = new Router();
         $this->session = new Session();
+        $this->database = new Database();
+
         self::$app = $this;
-
-        $config = require_once(dirname(__DIR__) . '/config/config.php');
-
-        foreach ($config as $key => $value){
-            $$key = $value;
-        }
-
-        self::$link = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8;", $username, $password);
     }
-
-    public static function boot(): void
+    public function boot(): void
     {
-        echo self::$app->router->resolve();
-        self::libs();
+//        $this->libs();
+        $this->router->resolve();
     }
 
-    public static function libs(): void
+    public function libs(): void
     {
         $config = require_once(dirname(__DIR__) . '/config/libs.php');
 
