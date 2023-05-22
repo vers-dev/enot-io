@@ -41,12 +41,13 @@ class Auth
             App::$app->session->set('errors', 'Incorrect password');
         }
 
-        if (!App::$app->session->has('errors')){
-            self::login($user['id']);
-            return true;
+        if (App::$app->session->has('errors')){
+            return false;
         }
 
-        return false;
+        self::login($user['id']);
+        return true;
+
     }
 
     public static function logout(): void

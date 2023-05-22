@@ -9,6 +9,7 @@ abstract class Controller
     public object $view;
     public object $request;
     public object $validator;
+    public object $rb;
 
     public function __construct()
     {

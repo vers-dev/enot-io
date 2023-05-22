@@ -2,7 +2,7 @@
 
 namespace App\core;
 
-use R;
+use PDO;
 
 final class App
 {
@@ -11,6 +11,7 @@ final class App
     public Session $session;
 
     public static App $app;
+    public static $link;
 
 
     public function __construct()
@@ -18,34 +19,28 @@ final class App
         $this->router = new Router();
         $this->session = new Session();
         self::$app = $this;
+
+        $config = require_once(dirname(__DIR__) . '/config/config.php');
+
+        foreach ($config as $key => $value){
+            $$key = $value;
+        }
+
+        self::$link = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8;", $username, $password);
     }
 
     public static function boot(): void
     {
         echo self::$app->router->resolve();
         self::libs();
-        self::db();
     }
 
-    public static function libs()
+    public static function libs(): void
     {
         $config = require_once(dirname(__DIR__) . '/config/libs.php');
 
         foreach ($config['libs'] as $lib) {
             require_once(dirname(__DIR__) . "/lib/$lib.php");
-        }
-    }
-
-    public static function db()
-    {
-        $config = require_once(dirname(__DIR__) . '/config/config.php');
-
-
-        R::setup('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'] . ';charset=utf8mb4;',
-            $config['username'], $config['password']);
-
-        if (!R::testConnection()) {
-            die("Ошибка подключения к бд");
         }
     }
 }

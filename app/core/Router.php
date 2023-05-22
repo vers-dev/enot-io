@@ -13,7 +13,7 @@ class Router
         $this->routes = [];
     }
 
-    public function get(string $path, \Closure|string|array $callback)
+    public function get(string $path, \Closure|array $callback)
     {
         $this->routes["GET"][$path] = $callback;
     }

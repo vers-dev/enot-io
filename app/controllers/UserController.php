@@ -7,8 +7,8 @@ use App\core\Auth;
 use App\core\Controller;
 use App\core\Router;
 use App\core\View;
-use R;
-
+use App\models\User;
+use RedBeanPHP\R;
 
 class UserController extends Controller
 {
@@ -38,10 +38,8 @@ class UserController extends Controller
             "password" => password_hash($validated['password'], PASSWORD_BCRYPT)
         ];
 
-        $user = \R::dispense('users');
-        $user->login = $data['login'];
-        $user->password = $data['password'];
-        $id = \R::store($user);
+        $id = User::create($data, 'users');
+
         Auth::login($id);
 
         Router::redirect();
