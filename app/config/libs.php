@@ -2,6 +2,6 @@
 
 return [
     "libs" => [
-        "rb"
+        "rb-mysql"
     ]
 ];

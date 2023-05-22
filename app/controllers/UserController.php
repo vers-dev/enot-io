@@ -7,7 +7,8 @@ use App\core\Auth;
 use App\core\Controller;
 use App\core\Router;
 use App\core\View;
-use RedBeanPHP\R;
+use R;
+
 
 class UserController extends Controller
 {
@@ -18,7 +19,6 @@ class UserController extends Controller
 
     public function store()
     {
-        class_alias('\RedBeanPHP\R','\R');
         $validation = $this->validator->validate($this->request->input(), [
             'login' => 'required|min:3|max:32',
             'password' => 'required|min:6',
@@ -38,11 +38,10 @@ class UserController extends Controller
             "password" => password_hash($validated['password'], PASSWORD_BCRYPT)
         ];
 
-        $user = R::dispense('users');
-        $user->password = $data['password'];
+        $user = \R::dispense('users');
         $user->login = $data['login'];
-        $id = R::store($user);
-
+        $user->password = $data['password'];
+        $id = \R::store($user);
         Auth::login($id);
 
         Router::redirect();

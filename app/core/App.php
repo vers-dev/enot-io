@@ -2,7 +2,6 @@
 
 namespace App\core;
 
-use App\core\ValidatorRules\UniqueRule;
 use R;
 
 final class App
@@ -30,10 +29,10 @@ final class App
 
     public static function libs()
     {
-        $config = require_once(dirname(__DIR__) . '/config/app.php');
+        $config = require_once(dirname(__DIR__) . '/config/libs.php');
 
         foreach ($config['libs'] as $lib) {
-            require_once(dirname(__DIR__) ."/lib/$lib.php");
+            require_once(dirname(__DIR__) . "/lib/$lib.php");
         }
     }
 
@@ -41,10 +40,11 @@ final class App
     {
         $config = require_once(dirname(__DIR__) . '/config/config.php');
 
-        R::setup( 'mysql:host='. $config['host'] .';dbname='. $config['dbname'] .';charset=utf8mb4;',
+
+        R::setup('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'] . ';charset=utf8mb4;',
             $config['username'], $config['password']);
 
-        if (!R::testConnection()){
+        if (!R::testConnection()) {
             die("Ошибка подключения к бд");
         }
     }
