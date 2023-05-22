@@ -11,3 +11,5 @@ $app = new App();
 require_once(dirname(__DIR__) . "/app/config/web.php");
 
 $app->boot();
+
+//debug($_SESSION['errors']);

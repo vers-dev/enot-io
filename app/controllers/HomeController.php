@@ -3,12 +3,14 @@
 namespace App\controllers;
 
 use App\core\Controller;
+use App\models\Currency;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return $this->render('pages/index');
+        $currencies = Currency::query()->all();
+        return $this->render('pages/index', ['currencies' => $currencies]);
     }
 
     public function login()
@@ -18,10 +20,7 @@ class HomeController extends Controller
 
     public function registration()
     {
-        $data = [
-            'name' => 'Енот'
-        ];
-        return $this->render('auth/registration', $data);
+        return $this->render('auth/registration');
 
     }
 }

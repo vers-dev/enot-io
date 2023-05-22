@@ -36,11 +36,11 @@ class Auth
         $user = User::query()->first("login=" . $data['login']);
 
         if (!$user) {
-            App::$app->session->set('errors', 'User not found');
+            App::$app->session->set('errors', ['User not found']);
         }
 
         if (!password_verify($data['password'], $user['password'])){
-            App::$app->session->set('errors', 'Incorrect password');
+            App::$app->session->set('errors', ['Incorrect password']);
         }
 
         if (App::$app->session->has('errors')){

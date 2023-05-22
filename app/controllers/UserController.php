@@ -6,18 +6,16 @@ use App\core\App;
 use App\core\Auth;
 use App\core\Controller;
 use App\core\Router;
-use App\core\View;
 use App\models\User;
-use RedBeanPHP\R;
 
 class UserController extends Controller
 {
-    public function profile(): View
+    public function profile()
     {
         return $this->render('pages/profile');
     }
 
-    public function store()
+    public function store(): bool
     {
         $validation = $this->validator->validate($this->request->input(), [
             'login' => 'required|min:3|max:32',
@@ -28,6 +26,7 @@ class UserController extends Controller
         if ($validation->fails()) {
             $errors = $validation->errors();
             App::$app->session->set('errors', $errors->firstOfAll());
+            Router::redirect('/registration');
             return false;
         }
 
@@ -43,9 +42,11 @@ class UserController extends Controller
         Auth::login($id);
 
         Router::redirect();
+
+        return true;
     }
 
-    public function auth()
+    public function auth(): bool
     {
         $validation = $this->validator->validate($this->request->input(), [
             'login' => 'required|min:3|max:32',
@@ -54,7 +55,8 @@ class UserController extends Controller
 
         if ($validation->fails()) {
             $errors = $validation->errors();
-            App::$app->session->set('errors', $errors->firstOfAll());
+            App::$app->session->set('errors', [$errors->firstOfAll()]);
+            Router::redirect('/login');
             return false;
         }
 

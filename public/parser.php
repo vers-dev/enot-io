@@ -15,6 +15,7 @@ $currencies = $database->query("SELECT * FROM `currencies`")->fetchAll();
 
 if (count($currencies) === 0){
     for ($j = 0; $j < count($matches[1]); $j++){
+        $matches[5][$j] = str_replace(',', '.', $matches[5][$j]);
         $state = $database->prepare("INSERT INTO currencies (int_code, char_code, units, name, currency) VALUES 
                                                                         ('" . $matches[1][$j] . "', '". $matches[2][$j] ."', '". $matches[3][$j] ."', '". $matches[4][$j] ."', '". $matches[5][$j]."')");
         $state->execute();

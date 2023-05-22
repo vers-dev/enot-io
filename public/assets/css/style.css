@@ -75,3 +75,23 @@ h1{
     display: flex;
     gap: 25px;
 }
+
+.convertor{
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    gap: 40px;
+}
+
+textarea{
+    width: 100%;
+    resize: vertical;
+    font-size: 28px;
+}
+select{
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.group p{
+    margin-bottom: 25px;
+}

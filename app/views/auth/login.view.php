@@ -14,6 +14,10 @@
                     <input type="password" name="password">
                 </label>
 
+                <ul>
+                    <?php include_once(dirname(__DIR__) . '/components/Form-error.section.php'); ?>
+                </ul>
+
                 <button class="button">Войти</button>
                 <p>
                     <a href="/registration">Зарегистрируйтесь,</a>
