@@ -38,13 +38,40 @@ class UserController extends Controller
             "password" => password_hash($validated['password'], PASSWORD_BCRYPT)
         ];
 
-        User::query()->create($data);
+        $id = User::query()->create($data);
 
-//        $id = User::create($data, 'users');
-//
-//        Auth::login($id);
-//
-//        Router::redirect();
+        Auth::login($id);
+
+        Router::redirect();
+    }
+
+    public function auth()
+    {
+        $validation = $this->validator->validate($this->request->input(), [
+            'login' => 'required|min:3|max:32',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validation->fails()) {
+            $errors = $validation->errors();
+            App::$app->session->set('errors', $errors->firstOfAll());
+            return false;
+        }
+
+        $validated = $validation->getValidatedData();
+
+        $data = [
+            "login" => $validated['login'],
+            "password" => password_hash($validated['password'], PASSWORD_BCRYPT)
+        ];
+
+        if (!Auth::attempt($data)) {
+            return false;
+        }
+
+        Router::redirect();
+
+        return true;
     }
 
     public function logout()

@@ -2,6 +2,8 @@
 
 namespace App\core;
 
+use App\models\User;
+
 class Auth
 {
 
@@ -29,9 +31,9 @@ class Auth
         (new Auth)->setIsAuthenticated(true);
     }
 
-    public static function attempt(array $data)
+    public static function attempt(array $data): bool
     {
-        $user = \R::getRow("SELECT * FROM users WHERE login=:login", [':login' => $data['login']]);
+        $user = User::query()->first("login=" . $data['login']);
 
         if (!$user) {
             App::$app->session->set('errors', 'User not found');
@@ -46,8 +48,8 @@ class Auth
         }
 
         self::login($user['id']);
-        return true;
 
+        return true;
     }
 
     public static function logout(): void
@@ -58,6 +60,6 @@ class Auth
 
     public static function check(): bool
     {
-        return (new Auth())->getIsAuthenticated();
+        return isset($_SESSION['AUTH_ID']) ? intval($_SESSION['AUTH_ID']) : false;
     }
 }

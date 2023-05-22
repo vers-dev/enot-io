@@ -13,3 +13,4 @@ $router->get('/profile', [UserController::class, 'profile']);
 $router->get('/logout', [UserController::class, 'logout']);
 
 $router->post('/users/create', [UserController::class, 'store']);
+$router->post('/users/auth', [UserController::class, 'auth']);

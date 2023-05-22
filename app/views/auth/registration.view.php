@@ -1,4 +1,4 @@
-
+<?php if (\App\core\Auth::check()) \App\core\Router::redirect(); ?>
 <section class="section">
     <div class="container">
         <div class="section-content">

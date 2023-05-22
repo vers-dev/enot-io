@@ -10,12 +10,19 @@ preg_match_all("/<tr>
         <\/tr>/", $html, $matches);
 
 unset($matches[0]);
-var_dump($matches);
 
-$fields = ['int_code', 'char_code', 'units', 'name', 'currency'];
+$currencies = $database->query("SELECT * FROM `currencies`")->fetchAll();
 
-for ($j = 0; $j < count($matches[1]); $j++){
-    $state = $database->prepare("INSERT INTO currencies (int_code, char_code, units, name, currency) VALUES 
+if (count($currencies) === 0){
+    for ($j = 0; $j < count($matches[1]); $j++){
+        $state = $database->prepare("INSERT INTO currencies (int_code, char_code, units, name, currency) VALUES 
                                                                         ('" . $matches[1][$j] . "', '". $matches[2][$j] ."', '". $matches[3][$j] ."', '". $matches[4][$j] ."', '". $matches[5][$j]."')");
-    $state->execute();
+        $state->execute();
+    }
+} else{
+    for ($j = 0; $j < count($matches[1]); $j++) {
+        $state = $database->prepare("UPDATE currencies SET currency=". $matches[5][$j] ." WHERE int_code=" . $matches[1][$j]);
+        $state->execute();
+    }
 }
+

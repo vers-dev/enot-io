@@ -11,12 +11,3 @@ $app = new App();
 require_once(dirname(__DIR__) . "/app/config/web.php");
 
 $app->boot();
-
-//User::query()->create([
-//    'login' => 'avavionmvm',
-//    'password' => 'avavionmvm',
-//]);
-
-User::query()->update(1, [
-    'login' => 'avavion'
-]);

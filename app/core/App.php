@@ -21,7 +21,7 @@ final class App
     public function boot(): void
     {
 //        $this->libs();
-        $this->router->resolve();
+        echo $this->router->resolve();
     }
 
     public function libs(): void
